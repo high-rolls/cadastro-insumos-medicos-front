@@ -1,0 +1,23 @@
+h2 {
+  margin: .5rem 0.5rem;
+  font-size: 1.25rem;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 2rem;
+  row-gap: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  background-color: #ddd;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+.summary {
+  margin: 2rem 2rem 1rem 2rem;
+  font-size: 1.25rem;
+}
