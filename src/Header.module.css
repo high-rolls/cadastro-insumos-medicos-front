@@ -1,4 +1,4 @@
-header {
+.headerBar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -6,7 +6,7 @@ header {
     background-color: #0d6efd;
 }
 
-button {
+.button {
     padding: 4px 16px;
     background-color: rgba(0, 0, 0, 5%);
     border: none;
@@ -17,19 +17,19 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.button:hover {
     background-color: rgba(0, 0, 0, 15%);
 }
 
-button:active {
+.button:active {
     background-color: rgba(0, 0, 0, 25%);
 }
 
-button::after {
+.button::after {
     margin-left: 8px;
     content: '+';
 }
 
-img {
+.logo {
     transform: translate(0, 4px);
 }

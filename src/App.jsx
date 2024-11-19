@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Header from './Header'
 import ProductGrid from './ProductGrid'
-import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)

@@ -1,5 +1,6 @@
 import ProductCard from './ProductCard'
 import ProductSummary from './ProductSummary'
+import styles from './ProductGrid.module.css'
 
 export default function ProductGrid({ products }) {
     const productCards = products.map((product) => {
@@ -13,7 +14,7 @@ export default function ProductGrid({ products }) {
     return (
         <section>
             <ProductSummary totalPrice={totalPrice} />
-            <div className="grid">
+            <div className={styles.grid}>
                 {productCards}
             </div>
         </section>
