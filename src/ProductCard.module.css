@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.actionButtons {
+.actionBar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,13 +20,33 @@
 }
 
 .actionButton {
+    height: 32px;
+    width: 32px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #afa;
+}
+
+.actionButton:active {
+    background-color: rgb(108, 160, 108);
+}
+
+.actionLink {
     text-decoration: none;
     color: black;
 }
 
-.actionButtonDelete {
+.actionLinkDelete {
     text-decoration: none;
     color: red;
+}
+
+.bottomActionBar {
+    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 8px;
 }
 
 .title {
