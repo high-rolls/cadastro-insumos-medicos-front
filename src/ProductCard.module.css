@@ -5,6 +5,30 @@
     border-radius: 4px;
 }
 
+.cardHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 4px;
+}
+
+.actionButton {
+    text-decoration: none;
+    color: black;
+}
+
+.actionButtonDelete {
+    text-decoration: none;
+    color: red;
+}
+
 .title {
     margin: .5rem 0.5rem;
     font-size: 1.25rem;
