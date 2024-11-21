@@ -1,13 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './ProductCard.module.css'
 import { asCurrency } from './utils/numbers'
 
-export default function ProductCard({ product }) {
-    const [isEditing, setIsEditing] = useState(false)
-    const [name, setName] = useState(product.name)
+export default function ProductCard({
+    product,
+    isEditing,
+    onEditToggle,
+    onSave,
+    onCancel
+}) {
+    const [draft, setDraft] = useState({ ...product })
 
-    const handleEditClicked = (event) => {
-        setIsEditing(!isEditing)
+    useEffect(() => {
+        setDraft({ ...product }) // Reset draft if product changes externally
+    }, [product])
+
+    const handleChange = (field, value) => {
+        setDraft((prev) => ({ ...prev, [field]: value }))
+    }
+
+    const handleConfirm = () => {
+        onSave(draft)
+    }
+
+    const handleCancel = () => {
+        setDraft({ ...product })
+        onCancel()
     }
 
     return (
@@ -17,17 +35,17 @@ export default function ProductCard({ product }) {
                     isEditing ?
                         <input
                             type="text"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
+                            value={draft.name}
+                            onChange={(e) => handleChange('name', e.target.value)}
                         /> :
-                        <h2 className={styles.title}>{name}</h2>
+                        <h2 className={styles.title}>{product.name}</h2>
                 }
                 {!isEditing &&
                     <div className={styles.actionBar}>
                         <a
                             href="#"
                             className={styles.actionLink}
-                            onClick={handleEditClicked}
+                            onClick={onEditToggle}
                         >
                             <i className="bi bi-pencil-square"></i>
                         </a>
@@ -38,15 +56,57 @@ export default function ProductCard({ product }) {
                 }
             </header>
             <ul>
-                <li>quantidade: {product.quantity}</li>
-                <li>preço: {asCurrency(product.price)}
+                <li>
+                    quantidade: {
+                        isEditing ?
+                            <input
+                                type="number"
+                                value={draft.quantity}
+                                onChange={
+                                    (e) => handleChange(
+                                        'quantity', Number(e.target.value)
+                                    )
+                                }
+                            /> :
+                            product.quantity
+                    }
+                </li>
+                <li>
+                    preço: {
+                        isEditing ?
+                            <input
+                                type="number"
+                                value={draft.price}
+                                onChange={
+                                    (e) => handleChange(
+                                        'price', Number(e.target.value)
+                                    )
+                                }
+                            /> :
+                            asCurrency(product.price)
+                    }
                 </li>
             </ul>
-            <div className={styles.bottomActionBar}>
-                <button type="button" className={styles.actionButton}>
-                    <i className="bi bi-check-lg"></i>
-                </button>
-            </div>
+            {isEditing &&
+                <div className={styles.bottomActionBar}>
+                    <button
+                        type="button"
+                        className={styles.actionButton}
+                        onClick={handleConfirm}
+                    >
+                        <i className="bi bi-check-lg"></i>
+                    </button>
+                    <button
+                        type="button"
+                        className={
+                            `${styles.actionButton} ${styles.cancelButton}`
+                        }
+                        onClick={handleCancel}
+                    >
+                        <i className="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            }
         </article>
     )
 }

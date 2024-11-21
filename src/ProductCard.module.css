@@ -27,6 +27,10 @@
     background-color: #afa;
 }
 
+.cancelButton {
+    background-color: #faa;
+}
+
 .actionButton:active {
     background-color: rgb(108, 160, 108);
 }
