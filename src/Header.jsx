@@ -5,7 +5,9 @@ export default function Header() {
   return (
     <header className={styles.headerBar}>
       <img className={styles.logo} src={cimLogo} alt="Logo CIM" />
-      <button className={styles.button} type="button">Cadastrar</button>
+      <button className={styles.button} type="button">
+        Cadastrar <i className="bi bi-plus-lg"></i>
+      </button>
     </header>
   )
 }
