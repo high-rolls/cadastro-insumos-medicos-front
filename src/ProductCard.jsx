@@ -60,11 +60,14 @@ export default function ProductCard({
             <header className={styles.cardHeader}>
                 {
                     isEditing ?
-                        <input
-                            type="text"
-                            value={localProduct.name}
-                            onChange={(e) => handleChange('name', e.target.value)}
-                        /> :
+                        <label>
+                            {"descrição: "}
+                            <input
+                                type="text"
+                                value={localProduct.name}
+                                onChange={(e) => handleChange('name', e.target.value)}
+                            />
+                        </label> :
                         <h2 className={styles.title}>{product.name}</h2>
                 }
                 {!isEditing &&
