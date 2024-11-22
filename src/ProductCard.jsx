@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
+import CurrencyInput, { formatValue } from 'react-currency-input-field'
 import styles from './ProductCard.module.css'
-import { asCurrency } from './utils/numbers'
 
 export default function ProductCard({
     product,
@@ -120,21 +120,33 @@ export default function ProductCard({
                     preço: {
                         isEditing ?
                             <>
-                                <input
-                                    type="number"
-                                    value={localProduct.price}
-                                    onChange={
-                                        (e) => handleChange(
-                                            'price', Number(e.target.value)
-                                        )
+                                <CurrencyInput
+                                    decimalsLimit={2}
+                                    intlConfig={{
+                                        locale: 'pt-BR',
+                                        currency: 'BRL'
+                                    }}
+                                    defaultValue={localProduct.price}
+                                    onValueChange={
+                                        (_value, _name, values) => {
+                                            handleChange(
+                                                'price', values.float
+                                            )
+                                        }
                                     }
                                 />
                                 {errors.price &&
                                     <p className={styles.error}>{errors.price}</p>
                                 }
-                            </>
-                            :
-                            asCurrency(product.price)
+                            </> :
+                            formatValue({
+                                value: product.price.toString(),
+                                decimalScale: 2,
+                                intlConfig: {
+                                    locale: 'pt-BR',
+                                    currency: 'BRL',
+                                }
+                            })
                     }
                 </li>
             </ul>
