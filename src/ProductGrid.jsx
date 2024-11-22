@@ -7,7 +7,8 @@ export default function ProductGrid({
     newProduct,
     onProductChange,
     onSaveNewProduct,
-    onCancelNewProduct
+    onCancelNewProduct,
+    onProductDelete,
 }) {
     const totalPrice = products.reduce((accumulator, item) =>
         (accumulator + item.price), 0
@@ -23,6 +24,9 @@ export default function ProductGrid({
                         product={product}
                         onProductChange={(updatedProduct) =>
                             onProductChange(updatedProduct, index)
+                        }
+                        onProductDelete={() =>
+                            onProductDelete(index)
                         }
                     />
                 ))}

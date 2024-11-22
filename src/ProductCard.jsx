@@ -8,6 +8,7 @@ export default function ProductCard({
     onSave,
     onCancel,
     onProductChange,
+    onProductDelete
 }) {
     const [isEditing, setIsEditing] = useState(editing)
     const [localProduct, setLocalProduct] = useState(product)
@@ -70,11 +71,21 @@ export default function ProductCard({
                         <a
                             href="#"
                             className={styles.actionLink}
-                            onClick={() => setIsEditing(true)}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                setIsEditing(true)
+                            }}
                         >
                             <i className="bi bi-pencil-square"></i>
                         </a>
-                        <a href="#" className={styles.actionLinkDelete}>
+                        <a
+                            href="#"
+                            className={styles.actionLinkDelete}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                onProductDelete()
+                            }}
+                        >
                             <i className="bi bi-x-lg"></i>
                         </a>
                     </div>

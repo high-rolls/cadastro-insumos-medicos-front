@@ -31,6 +31,14 @@ function App() {
     )
   }
 
+  const handleProductDelete = (index) => {
+    if (confirm('Confirma a exclusão do produto?')) {
+      setProducts((prevProducts) =>
+        prevProducts.filter((_, filterIndex) => filterIndex != index)
+      )
+    }
+  }
+
   return (
     <>
       <Header onAddProduct={handleAddProduct} />
@@ -40,6 +48,7 @@ function App() {
         onProductChange={handleProductChange}
         onCancelNewProduct={handleCancelNewProduct}
         onSaveNewProduct={handleSaveNewProduct}
+        onProductDelete={handleProductDelete}
       />
     </>
   )
