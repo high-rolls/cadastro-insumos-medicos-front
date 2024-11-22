@@ -57,3 +57,8 @@
     margin: .5rem 0.5rem;
     font-size: 1.25rem;
 }
+
+.error {
+    color: #f44;
+    display: block
+}

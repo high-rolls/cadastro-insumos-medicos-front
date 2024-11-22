@@ -11,16 +11,32 @@ export default function ProductCard({
 }) {
     const [isEditing, setIsEditing] = useState(editing)
     const [localProduct, setLocalProduct] = useState(product)
+    const [errors, setErrors] = useState({})
 
     useEffect(() => {
         setLocalProduct(product) // Reset local product if product changes externally
     }, [product])
+
+    const validate = () => {
+        const newErrors = {}
+        if (!localProduct.name.trim())
+            newErrors.name = 'Nome não pode estar vazio.'
+        if (localProduct.price <= 0)
+            newErrors.price = 'Preço deve ser maior que 0.'
+        if (localProduct.quantity <= 0)
+            newErrors.quantity = 'Quantidade deve ser maior que 0.'
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
 
     const handleChange = (field, value) => {
         setLocalProduct((prev) => ({ ...prev, [field]: value }))
     }
 
     const handleConfirm = () => {
+        if (!validate()) {
+            return
+        }
         setIsEditing(false)
         if (onSave) {
             onSave(localProduct)
@@ -64,34 +80,48 @@ export default function ProductCard({
                     </div>
                 }
             </header>
+            {errors.name &&
+                <span className={styles.error}>{errors.name}</span>
+            }
             <ul>
                 <li>
                     quantidade: {
                         isEditing ?
-                            <input
-                                type="number"
-                                value={localProduct.quantity}
-                                onChange={
-                                    (e) => handleChange(
-                                        'quantity', Number(e.target.value)
-                                    )
+                            <>
+                                <input
+                                    type="number"
+                                    value={localProduct.quantity}
+                                    onChange={
+                                        (e) => handleChange(
+                                            'quantity', Number(e.target.value)
+                                        )
+                                    }
+                                />
+                                {errors.quantity &&
+                                    <span className={styles.error}>{errors.quantity}</span>
                                 }
-                            /> :
+                            </> :
                             product.quantity
                     }
                 </li>
                 <li>
                     preço: {
                         isEditing ?
-                            <input
-                                type="number"
-                                value={localProduct.price}
-                                onChange={
-                                    (e) => handleChange(
-                                        'price', Number(e.target.value)
-                                    )
+                            <>
+                                <input
+                                    type="number"
+                                    value={localProduct.price}
+                                    onChange={
+                                        (e) => handleChange(
+                                            'price', Number(e.target.value)
+                                        )
+                                    }
+                                />
+                                {errors.price &&
+                                    <span className={styles.error}>{errors.price}</span>
                                 }
-                            /> :
+                            </>
+                            :
                             asCurrency(product.price)
                     }
                 </li>
