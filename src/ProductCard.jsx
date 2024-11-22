@@ -4,9 +4,12 @@ import { asCurrency } from './utils/numbers'
 
 export default function ProductCard({
     product,
-    onProductChange
+    editing = false,
+    onSave,
+    onCancel,
+    onProductChange,
 }) {
-    const [isEditing, setIsEditing] = useState(false)
+    const [isEditing, setIsEditing] = useState(editing)
     const [localProduct, setLocalProduct] = useState(product)
 
     useEffect(() => {
@@ -19,12 +22,19 @@ export default function ProductCard({
 
     const handleConfirm = () => {
         setIsEditing(false)
-        onProductChange(localProduct)
+        if (onSave) {
+            onSave(localProduct)
+        } else if (onProductChange) {
+            onProductChange(localProduct)
+        }
     }
 
     const handleCancel = () => {
         setIsEditing(false)
         setLocalProduct(product)
+        if (onCancel) {
+            onCancel()
+        }
     }
 
     return (

@@ -1,19 +1,14 @@
-import { useState } from 'react'
 import ProductCard from './ProductCard'
 import ProductSummary from './ProductSummary'
 import styles from './ProductGrid.module.css'
 
-export default function ProductGrid({ initialProducts }) {
-    const [products, setProducts] = useState(initialProducts)
-
-    const handleProductChange = (updatedProduct, index) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((product, i) =>
-                (i === index ? updatedProduct : product)
-            )
-        )
-    }
-
+export default function ProductGrid({
+    products,
+    newProduct,
+    onProductChange,
+    onSaveNewProduct,
+    onCancelNewProduct
+}) {
     const totalPrice = products.reduce((accumulator, item) =>
         (accumulator + item.price), 0
     )
@@ -27,10 +22,18 @@ export default function ProductGrid({ initialProducts }) {
                         key={index}
                         product={product}
                         onProductChange={(updatedProduct) =>
-                            handleProductChange(updatedProduct, index)
+                            onProductChange(updatedProduct, index)
                         }
                     />
                 ))}
+                {newProduct && (
+                    <ProductCard
+                        product={newProduct}
+                        editing={true}
+                        onSave={onSaveNewProduct}
+                        onCancel={onCancelNewProduct}
+                    />
+                )}
             </div>
         </section>
     )

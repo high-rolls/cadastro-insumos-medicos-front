@@ -3,12 +3,44 @@ import Header from './Header'
 import ProductGrid from './ProductGrid'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [products, setProducts] = useState(PRODUCTS)
+  const [newProduct, setNewProduct] = useState(null)
+
+  const handleAddProduct = () => {
+    setNewProduct({
+      name: '',
+      price: 0,
+      quantity: 0
+    })
+  }
+
+  const handleSaveNewProduct = (product) => {
+    setProducts([...products, product])
+    setNewProduct(null)
+  }
+
+  const handleCancelNewProduct = () => {
+    setNewProduct(null)
+  }
+
+  const handleProductChange = (updatedProduct, index) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product, i) =>
+        (i === index ? updatedProduct : product)
+      )
+    )
+  }
 
   return (
     <>
-      <Header />
-      <ProductGrid initialProducts={PRODUCTS} />
+      <Header onAddProduct={handleAddProduct} />
+      <ProductGrid
+        products={products}
+        newProduct={newProduct}
+        onProductChange={handleProductChange}
+        onCancelNewProduct={handleCancelNewProduct}
+        onSaveNewProduct={handleSaveNewProduct}
+      />
     </>
   )
 }
