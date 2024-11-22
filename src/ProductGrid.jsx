@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import ProductCard from './ProductCard'
 import ProductSummary from './ProductSummary'
 import styles from './ProductGrid.module.css'
@@ -10,8 +11,11 @@ export default function ProductGrid({
     onCancelNewProduct,
     onProductDelete,
 }) {
-    const totalPrice = products.reduce((accumulator, item) =>
-        (accumulator + item.price), 0
+    const totalPrice = useMemo(
+        () => (products.reduce((accumulator, item) =>
+            (accumulator + item.price), 0
+        )),
+        [products]
     )
 
     return (
