@@ -49,6 +49,7 @@ export default function ProductCard({
     const handleCancel = () => {
         setIsEditing(false)
         setLocalProduct(product)
+        setErrors({})
         if (onCancel) {
             onCancel()
         }
@@ -92,7 +93,7 @@ export default function ProductCard({
                 }
             </header>
             {errors.name &&
-                <span className={styles.error}>{errors.name}</span>
+                <p className={styles.error}>{errors.name}</p>
             }
             <ul>
                 <li>
@@ -109,7 +110,7 @@ export default function ProductCard({
                                     }
                                 />
                                 {errors.quantity &&
-                                    <span className={styles.error}>{errors.quantity}</span>
+                                    <p className={styles.error}>{errors.quantity}</p>
                                 }
                             </> :
                             product.quantity
@@ -129,7 +130,7 @@ export default function ProductCard({
                                     }
                                 />
                                 {errors.price &&
-                                    <span className={styles.error}>{errors.price}</span>
+                                    <p className={styles.error}>{errors.price}</p>
                                 }
                             </>
                             :
