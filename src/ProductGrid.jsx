@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ProductManager from './ProductManager'
+import ProductCard from './ProductCard'
 import ProductSummary from './ProductSummary'
 import styles from './ProductGrid.module.css'
 
@@ -23,9 +23,9 @@ export default function ProductGrid({ initialProducts }) {
             <ProductSummary totalPrice={totalPrice} />
             <div className={styles.grid}>
                 {products.map((product, index) => (
-                    <ProductManager
+                    <ProductCard
                         key={index}
-                        initialProduct={product}
+                        product={product}
                         onProductChange={(updatedProduct) =>
                             handleProductChange(updatedProduct, index)
                         }

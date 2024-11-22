@@ -4,28 +4,27 @@ import { asCurrency } from './utils/numbers'
 
 export default function ProductCard({
     product,
-    isEditing,
-    onEditToggle,
-    onSave,
-    onCancel
+    onProductChange
 }) {
-    const [draft, setDraft] = useState({ ...product })
+    const [isEditing, setIsEditing] = useState(false)
+    const [localProduct, setLocalProduct] = useState(product)
 
     useEffect(() => {
-        setDraft({ ...product }) // Reset draft if product changes externally
+        setLocalProduct(product) // Reset local product if product changes externally
     }, [product])
 
     const handleChange = (field, value) => {
-        setDraft((prev) => ({ ...prev, [field]: value }))
+        setLocalProduct((prev) => ({ ...prev, [field]: value }))
     }
 
     const handleConfirm = () => {
-        onSave(draft)
+        setIsEditing(false)
+        onProductChange(localProduct)
     }
 
     const handleCancel = () => {
-        setDraft({ ...product })
-        onCancel()
+        setIsEditing(false)
+        setLocalProduct(product)
     }
 
     return (
@@ -35,7 +34,7 @@ export default function ProductCard({
                     isEditing ?
                         <input
                             type="text"
-                            value={draft.name}
+                            value={localProduct.name}
                             onChange={(e) => handleChange('name', e.target.value)}
                         /> :
                         <h2 className={styles.title}>{product.name}</h2>
@@ -45,7 +44,7 @@ export default function ProductCard({
                         <a
                             href="#"
                             className={styles.actionLink}
-                            onClick={onEditToggle}
+                            onClick={() => setIsEditing(true)}
                         >
                             <i className="bi bi-pencil-square"></i>
                         </a>
@@ -61,7 +60,7 @@ export default function ProductCard({
                         isEditing ?
                             <input
                                 type="number"
-                                value={draft.quantity}
+                                value={localProduct.quantity}
                                 onChange={
                                     (e) => handleChange(
                                         'quantity', Number(e.target.value)
@@ -76,7 +75,7 @@ export default function ProductCard({
                         isEditing ?
                             <input
                                 type="number"
-                                value={draft.price}
+                                value={localProduct.price}
                                 onChange={
                                     (e) => handleChange(
                                         'price', Number(e.target.value)
