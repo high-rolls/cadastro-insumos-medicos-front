@@ -13,7 +13,7 @@ export default function ProductGrid({
 }) {
     const totalPrice = useMemo(
         () => (products.reduce((accumulator, item) =>
-            (accumulator + item.price), 0
+            (accumulator + item.price * item.quantity), 0
         )),
         [products]
     )
