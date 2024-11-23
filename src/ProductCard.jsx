@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react'
+import { forwardRef, useState, useEffect } from 'react'
 import CurrencyInput, { formatValue } from 'react-currency-input-field'
 import styles from './ProductCard.module.css'
 
-export default function ProductCard({
+const ProductCard = forwardRef(function ProductCard({
     product,
     editing = false,
     onSave,
     onCancel,
     onProductChange,
     onProductDelete
-}) {
+}, ref) {
     const [isEditing, setIsEditing] = useState(editing)
     const [localProduct, setLocalProduct] = useState(product)
     const [errors, setErrors] = useState({})
@@ -56,7 +56,7 @@ export default function ProductCard({
     }
 
     return (
-        <article className={styles.card}>
+        <article className={styles.card} ref={ref}>
             <header className={styles.cardHeader}>
                 {
                     isEditing ?
@@ -175,4 +175,6 @@ export default function ProductCard({
             }
         </article>
     )
-}
+})
+
+export default ProductCard

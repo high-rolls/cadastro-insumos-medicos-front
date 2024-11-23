@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { forwardRef, useEffect, useMemo, useRef } from 'react'
 import ProductCard from './ProductCard'
 import ProductSummary from './ProductSummary'
 import styles from './ProductGrid.module.css'
@@ -11,12 +11,22 @@ export default function ProductGrid({
     onCancelNewProduct,
     onProductDelete,
 }) {
+    const newProductRef = useRef(null)
+
     const totalPrice = useMemo(
         () => (products.reduce((accumulator, item) =>
             (accumulator + item.custo * item.quantidade), 0
         )),
         [products]
     )
+
+    useEffect(() => {
+        if (newProductRef.current) {
+            newProductRef.current.scrollIntoView({
+                behavior: 'smooth'
+            })
+        }
+    }, [newProduct])
 
     return (
         <section>
@@ -40,6 +50,7 @@ export default function ProductGrid({
                         editing={true}
                         onSave={onSaveNewProduct}
                         onCancel={onCancelNewProduct}
+                        ref={newProductRef}
                     />
                 )}
             </div>
