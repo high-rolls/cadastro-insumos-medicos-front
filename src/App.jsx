@@ -35,13 +35,22 @@ function App() {
 
   const handleSaveNewProduct = async (product) => {
     try {
-      await mutate([...products, addProduct(product)], {
-        optimisticData: [...data, product],
+      const newProduct = await addProduct(product)
+
+      if (!newProduct || typeof newProduct !== 'object'
+        || !newProduct?.id || !newProduct?.nome
+      ) {
+        throw new Error('Invalid product returned from addProduct.')
+      }
+
+      mutate([...products, newProduct], {
+        optimisticData: [...products, { ...product, id: newProduct.id }],
         ...mutateOptions
       })
       toast.success('Produto adicionado com sucesso.')
       setNewProduct(null)
     } catch (e) {
+      console.error('Error saving new product:', e)
       toast.error('Falha ao adicionar produto.')
     }
   }
@@ -62,8 +71,8 @@ function App() {
       })
       toast.success('Produto atualizado com sucesso.')
     } catch (e) {
+      console.error('Error updating product:', e)
       toast.error('Falha ao salvar produto.')
-      console.error(e)
     }
   }
 
@@ -78,6 +87,7 @@ function App() {
         })
         toast.success(`Produto ${id} excluído.`)
       } catch (e) {
+        console.error('Error deleting product:', e)
         toast.error('Falha ao excluir produto.')
       }
     }
