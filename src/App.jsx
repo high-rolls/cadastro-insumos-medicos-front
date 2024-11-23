@@ -60,6 +60,7 @@ function App() {
         optimisticData: newProducts,
         ...mutateOptions
       })
+      toast.success('Produto atualizado.')
     } catch (e) {
       toast.error('Falha ao salvar produto.')
       console.error(e)
