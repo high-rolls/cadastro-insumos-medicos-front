@@ -1,8 +1,8 @@
-# React + Vite
+# Cadastro de Insumos Médicos
+Front-end do projeto de cadastro de insumos médicos para a disciplina "PROJETO INTEGRADOR: DESENVOLVIMENTO DE SISTEMAS ORIENTADO A DISPOSITIVOS MÓVEIS E BASEADOS NA WEB" do Senac EaD, do grupo 49 do segundo semestre de 2024.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Tecnologias utilizadas
+- Framework: [React](https://react.dev/) + [Vite](https://vite.dev/)
+- Ícones: [Bootstrap Icons](https://icons.getbootstrap.com/)
+- Carregamento de dados com revalidação: [SWR](https://swr.vercel.app/)
+- Toasts: [React Hot Toast](https://react-hot-toast.com/)
