@@ -20,12 +20,12 @@ export default function ProductCard({
 
     const validate = () => {
         const newErrors = {}
-        if (!localProduct.name.trim())
-            newErrors.name = 'Nome não pode estar vazio.'
-        if (localProduct.price <= 0)
-            newErrors.price = 'Preço deve ser maior que 0.'
-        if (localProduct.quantity <= 0)
-            newErrors.quantity = 'Quantidade deve ser maior que 0.'
+        if (!localProduct.nome.trim())
+            newErrors.nome = 'Nome não pode estar vazio.'
+        if (localProduct.custo <= 0)
+            newErrors.custo = 'Preço deve ser maior que 0.'
+        if (localProduct.quantidade <= 0)
+            newErrors.quantidade = 'Quantidade deve ser maior que 0.'
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
     }
@@ -64,11 +64,11 @@ export default function ProductCard({
                             {"descrição: "}
                             <input
                                 type="text"
-                                value={localProduct.name}
-                                onChange={(e) => handleChange('name', e.target.value)}
+                                value={localProduct.nome}
+                                onChange={(e) => handleChange('nome', e.target.value)}
                             />
                         </label> :
-                        <h2 className={styles.title}>{product.name}</h2>
+                        <h2 className={styles.title}>{product.nome}</h2>
                 }
                 {!isEditing &&
                     <div className={styles.actionBar}>
@@ -95,8 +95,8 @@ export default function ProductCard({
                     </div>
                 }
             </header>
-            {errors.name &&
-                <p className={styles.error}>{errors.name}</p>
+            {errors.nome &&
+                <p className={styles.error}>{errors.nome}</p>
             }
             <ul>
                 <li>
@@ -105,18 +105,18 @@ export default function ProductCard({
                             <>
                                 <input
                                     type="number"
-                                    value={localProduct.quantity}
+                                    value={localProduct.quantidade}
                                     onChange={
                                         (e) => handleChange(
-                                            'quantity', Number(e.target.value)
+                                            'quantidade', Number(e.target.value)
                                         )
                                     }
                                 />
-                                {errors.quantity &&
-                                    <p className={styles.error}>{errors.quantity}</p>
+                                {errors.quantidade &&
+                                    <p className={styles.error}>{errors.quantidade}</p>
                                 }
                             </> :
-                            product.quantity
+                            product.quantidade
                     }
                 </li>
                 <li>
@@ -129,21 +129,21 @@ export default function ProductCard({
                                         locale: 'pt-BR',
                                         currency: 'BRL'
                                     }}
-                                    defaultValue={localProduct.price}
+                                    defaultValue={localProduct.custo}
                                     onValueChange={
                                         (_value, _name, values) => {
                                             handleChange(
-                                                'price', values.float
+                                                'custo', values.float
                                             )
                                         }
                                     }
                                 />
-                                {errors.price &&
-                                    <p className={styles.error}>{errors.price}</p>
+                                {errors.custo &&
+                                    <p className={styles.error}>{errors.custo}</p>
                                 }
                             </> :
                             formatValue({
-                                value: product.price.toString(),
+                                value: product.custo.toString(),
                                 decimalScale: 2,
                                 intlConfig: {
                                     locale: 'pt-BR',

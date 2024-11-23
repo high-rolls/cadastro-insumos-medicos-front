@@ -13,7 +13,7 @@ export default function ProductGrid({
 }) {
     const totalPrice = useMemo(
         () => (products.reduce((accumulator, item) =>
-            (accumulator + item.price * item.quantity), 0
+            (accumulator + item.custo * item.quantidade), 0
         )),
         [products]
     )
@@ -22,15 +22,15 @@ export default function ProductGrid({
         <section>
             <ProductSummary totalPrice={totalPrice} />
             <div className={styles.grid}>
-                {products.map((product, index) => (
+                {products.map((product) => (
                     <ProductCard
-                        key={index}
+                        key={product.id}
                         product={product}
                         onProductChange={(updatedProduct) =>
-                            onProductChange(updatedProduct, index)
+                            onProductChange(updatedProduct)
                         }
                         onProductDelete={() =>
-                            onProductDelete(index)
+                            onProductDelete(product.id)
                         }
                     />
                 ))}
