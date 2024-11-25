@@ -15,7 +15,7 @@ const ProductCard = forwardRef(function ProductCard({
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        setLocalProduct(product) // Reset local product if product changes externally
+        setLocalProduct(product) // Reset product if it changes externally
     }, [product])
 
     const validate = () => {
@@ -65,7 +65,9 @@ const ProductCard = forwardRef(function ProductCard({
                             <input
                                 type="text"
                                 value={localProduct.nome}
-                                onChange={(e) => handleChange('nome', e.target.value)}
+                                onChange={(e) =>
+                                    handleChange('nome', e.target.value)
+                                }
                             />
                         </label> :
                         <h2 className={styles.title}>{product.nome}</h2>
@@ -113,7 +115,9 @@ const ProductCard = forwardRef(function ProductCard({
                                     }
                                 />
                                 {errors.quantidade &&
-                                    <p className={styles.error}>{errors.quantidade}</p>
+                                    <p className={styles.error}>
+                                        {errors.quantidade}
+                                    </p>
                                 }
                             </> :
                             product.quantidade
@@ -139,7 +143,9 @@ const ProductCard = forwardRef(function ProductCard({
                                     }
                                 />
                                 {errors.custo &&
-                                    <p className={styles.error}>{errors.custo}</p>
+                                    <p className={styles.error}>
+                                        {errors.custo}
+                                    </p>
                                 }
                             </> :
                             formatValue({

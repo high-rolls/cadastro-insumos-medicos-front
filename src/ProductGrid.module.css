@@ -3,4 +3,11 @@
     flex-direction: column;
     margin: 1rem 2rem;
     row-gap: 1rem;
+
+    /* Ajusta o layout para tela com largura maior */
+    @media (min-width: 768px) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+    }
 }
